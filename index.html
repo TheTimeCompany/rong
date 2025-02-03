@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rong - Color Palette Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Rong</h1>
+        <div id="palette-container">
+            <div id="palette"></div>
+        </div>
+    </div>
+
+    <div class="sticky-bar">
+        <select id="mode">
+            <option value="random">Random</option>
+            <option value="complementary">Complementary</option>
+            <option value="split-complementary">Split-Complementary</option>
+            <option value="analogous">Analogous</option>
+            <option value="triadic">Triadic</option>
+            <option value="tetradic">Tetradic</option>
+            <option value="square">Square</option>
+            <option value="monochromatic">Monochromatic</option>
+        </select>
+        <button onclick="generatePalette()">Generate ✨</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
