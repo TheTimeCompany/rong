@@ -1,5 +1,5 @@
 function getRandomColor() {
-    return `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`;
+    return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
 }
 
 function generatePalette() {
@@ -48,6 +48,22 @@ function generatePalette() {
         colorBox.appendChild(text);
 
         palette.appendChild(colorBox);
+    });
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('light');
+}
+
+function toggleChart() {
+    const modal = document.getElementById("color-chart");
+    modal.style.display = modal.style.display === "flex" ? "none" : "flex";
+}
+
+function updateColorBoxes(color) {
+    const colorBoxes = document.querySelectorAll('.color-box');
+    colorBoxes.forEach(box => {
+        box.style.backgroundColor = color;
     });
 }
 
@@ -118,6 +134,69 @@ function hexToHsv(hex) {
     }
 
     return `${Math.round(h)}°, ${(s * 100).toFixed(1)}%, ${(v * 100).toFixed(1)}%`;
+}
+
+function getComplementaryColor(baseColor) {
+    let hsl = hexToHsl(baseColor);
+    let h = parseInt(hsl.split('°')[0]);
+    let newH = (h + 180) % 360;
+    return `hsl(${newH}, 100%, 50%)`;
+}
+
+function getSplitComplementaryColors(baseColor) {
+    let hsl = hexToHsl(baseColor);
+    let h = parseInt(hsl.split('°')[0]);
+    let first = (h + 150) % 360;
+    let second = (h + 210) % 360;
+    return [`hsl(${first}, 100%, 50%)`, `hsl(${second}, 100%, 50%)`];
+}
+
+function getAnalogousColors(baseColor) {
+    let hsl = hexToHsl(baseColor);
+    let h = parseInt(hsl.split('°')[0]);
+    return [
+        `hsl(${(h - 30 + 360) % 360}, 100%, 50%)`,
+        `hsl(${(h + 30) % 360}, 100%, 50%)`
+    ];
+}
+
+function getTriadicColors(baseColor) {
+    let hsl = hexToHsl(baseColor);
+    let h = parseInt(hsl.split('°')[0]);
+    return [
+        `hsl(${(h + 120) % 360}, 100%, 50%)`,
+        `hsl(${(h + 240) % 360}, 100%, 50%)`
+    ];
+}
+
+function getTetradicColors(baseColor) {
+    let hsl = hexToHsl(baseColor);
+    let h = parseInt(hsl.split('°')[0]);
+    return [
+        `hsl(${(h + 90) % 360}, 100%, 50%)`,
+        `hsl(${(h + 180) % 360}, 100%, 50%)`,
+        `hsl(${(h + 270) % 360}, 100%, 50%)`
+    ];
+}
+
+function getSquareColors(baseColor) {
+    let hsl = hexToHsl(baseColor);
+    let h = parseInt(hsl.split('°')[0]);
+    return [
+        `hsl(${(h + 90) % 360}, 100%, 50%)`,
+        `hsl(${(h + 180) % 360}, 100%, 50%)`,
+        `hsl(${(h + 270) % 360}, 100%, 50%)`
+    ];
+}
+
+function getMonochromaticColors(baseColor) {
+    let hsl = hexToHsl(baseColor);
+    let h = parseInt(hsl.split('°')[0]);
+    return [
+        `hsl(${h}, 100%, 70%)`,
+        `hsl(${h}, 100%, 50%)`,
+        `hsl(${h}, 100%, 30%)`
+    ];
 }
 
 document.addEventListener("mousemove", (e) => {
